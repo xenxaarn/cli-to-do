@@ -22,15 +22,13 @@
 ```
 ###  How to run ?
 ```bash
-git clone https://codeberg.org/xenxaarn/To-Do.git
+git clone https://codeberg.org/xenxaarn/cli-to-do
 ```
 ```bash
-cd To-Do
+cd cli-to-do
 ```
 ```bash
 gcc -o main main.c
 ```
-```bash
-./main
-```
+
 
