@@ -22,7 +22,7 @@
 ```
 ###  How to run ?
 ```bash
-git clone https://codeberg.org/xenxaarn/cli-to-do
+git clone https://codeberg.org/xenxaarn/cli-to-do.git
 ```
 ```bash
 cd cli-to-do
