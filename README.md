@@ -30,5 +30,8 @@ cd cli-to-do
 ```bash
 gcc -o main main.c
 ```
+```bash
+./main
+```
 
 
