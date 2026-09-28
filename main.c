@@ -12,8 +12,6 @@ struct ToDo {
   int count;
 };
 
-FILE *fp;
-
 todo *start = NULL;
 
 int main(void) {
@@ -22,9 +20,7 @@ int main(void) {
   void completedtask(void);
   void deletetask(void);
   int option;
-  fp = fopen("todo.txt", "a");
   while (1) {
-    system("clear");
     printf("\n --CLI-TO-DO-- \n");
     printf("1. = View a task\n");
     printf("2. = Add a task\n");
@@ -55,31 +51,35 @@ int main(void) {
       printf("\nInvalid Number\n");
       return 0;
     }
-    if (fp == NULL) {
-      printf("Could not open file for write");
-      return 1;
-    }
-    if (start == NULL) {
-      printf("To Do list is empty\n");
-    }
   }
-
-  fclose(fp);
   return 0;
 }
 
 todo *temp;
-// should display the content based on the todo number thats in the file
-void viewtask(void) {}
+char str[255];
+FILE *fp;
+void viewtask(void) {
+  fp = fopen("todo.txt", "r");
+  if (fp == NULL) {
+    printf("Empty\n");
+    return;
+  }
+  while (fgets(str, 255, fp) != NULL) {
+    printf("%s", str);
+  }
+  fclose(fp);
+}
 
 char task[100];
+FILE *fp;
 void addtask(void) {
+  fp = fopen("todo.txt", "a");
   printf("Addtask : ");
-  scanf("%s\n", task);
+  scanf(" %99[^\n]", task);
   fprintf(fp, "%s\n", task);
   system("clear");
+  fclose(fp);
 }
 
 void completedtask(void) {}
-
 void deletetask(void) {}
