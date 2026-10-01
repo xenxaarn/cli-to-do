@@ -27,7 +27,7 @@ int main(void) {
     printf("3. = Completed task\n");
     printf("4. = Delete a task\n");
     printf("5. = Exit\n");
-    printf("Choose any option\n");
+    printf("Choose any option : ");
     scanf(" %d", &option);
     switch (option) {
     case 1:
@@ -58,14 +58,17 @@ int main(void) {
 todo *temp;
 char str[255];
 FILE *fp;
+
 void viewtask(void) {
   fp = fopen("todo.txt", "r");
+  int i = 1;
   if (fp == NULL) {
     printf("Empty\n");
     return;
   }
   while (fgets(str, 255, fp) != NULL) {
-    printf("%s", str);
+    printf("%d, %s", i, str);
+    i++;
   }
   fclose(fp);
 }
@@ -81,5 +84,41 @@ void addtask(void) {
   fclose(fp);
 }
 
-void completedtask(void) {}
-void deletetask(void) {}
+void completedtask(void) {
+  fp = fopen("todo.txt", "r");
+  int line_numc;
+  int i = 1;
+  if (fp == NULL) {
+    printf("Empty\n");
+    return;
+  }
+  while (fgets(str, 255, fp) != NULL) {
+    printf("%d, %s", i, str);
+    i++;
+  }
+
+  printf("Enter task line number :");
+  scanf("%d", &line_numc);
+
+  printf("Task has been Completed !\n");
+  fclose(fp);
+}
+
+void deletetask(void) {
+  fp = fopen("todo.txt", "r");
+  int line_num;
+  int i = 1;
+  if (fp == NULL) {
+    printf("Empty\n");
+    return;
+  }
+  while (fgets(str, 255, fp) != NULL) {
+    printf("%d, %s", i, str);
+    i++;
+  }
+  printf("delete : ");
+  scanf("%d", &line_num);
+
+  printf("\nTask has been deleted !!\n");
+  fclose(fp);
+}
