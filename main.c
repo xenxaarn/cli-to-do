@@ -4,15 +4,7 @@
 #define MAX_TASK 200
 #define MAX_LEN 250
 #define FILE_NAME "todo.txt"
-
-typedef struct ToDo todo;
-struct ToDo {
-  char buffer[100];
-  todo *next;
-  int count;
-};
-
-todo *start = NULL;
+#define TMP_FILE "temp.txt"
 
 int main(void) {
   void viewtask(void);
@@ -55,9 +47,9 @@ int main(void) {
   return 0;
 }
 
-todo *temp;
 char str[255];
 FILE *fp;
+FILE *ftmp;
 
 void viewtask(void) {
   fp = fopen("todo.txt", "r");
@@ -85,40 +77,59 @@ void addtask(void) {
 }
 
 void completedtask(void) {
-  fp = fopen("todo.txt", "r");
-  int line_numc;
-  int i = 1;
+  int line_numc, i = 1;
+  fp = fopen(FILE_NAME, "r");
   if (fp == NULL) {
     printf("Empty\n");
     return;
   }
   while (fgets(str, 255, fp) != NULL) {
-    printf("%d, %s", i, str);
+    printf("%d. %s", i++, str);
+  }
+  printf("Task Number: ");
+  scanf("%d", &line_numc);
+  rewind(fp);
+  ftmp = fopen(TMP_FILE, "w");
+  i = 1;
+  while (fgets(str, 255, fp) != NULL) {
+    if (i == line_numc) {
+      fprintf(ftmp, "[*] %s", str);
+    } else {
+      fputs(str, ftmp);
+    }
     i++;
   }
-
-  printf("Enter task line number :");
-  scanf("%d", &line_numc);
-
-  printf("Task has been Completed !\n");
   fclose(fp);
+  fclose(ftmp);
+  remove(FILE_NAME);
+  rename(TMP_FILE, FILE_NAME);
+  printf("Completed!\n");
 }
 
 void deletetask(void) {
-  fp = fopen("todo.txt", "r");
-  int line_num;
-  int i = 1;
+  int line_num, i = 1;
+  fp = fopen(FILE_NAME, "r");
   if (fp == NULL) {
     printf("Empty\n");
     return;
   }
   while (fgets(str, 255, fp) != NULL) {
-    printf("%d, %s", i, str);
+    printf("%d. %s", i++, str);
+  }
+  printf("Enter task line number to delete: ");
+  scanf("%d", &line_num);
+  rewind(fp);
+  ftmp = fopen(TMP_FILE, "w");
+  i = 1;
+  while (fgets(str, 255, fp) != NULL) {
+    if (i != line_num) {
+      fputs(str, ftmp);
+    }
     i++;
   }
-  printf("delete : ");
-  scanf("%d", &line_num);
-
-  printf("\nTask has been deleted !!\n");
   fclose(fp);
+  fclose(ftmp);
+  remove(FILE_NAME);
+  rename(TMP_FILE, FILE_NAME);
+  printf("Task deleted!\n");
 }
