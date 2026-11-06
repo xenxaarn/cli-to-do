@@ -1,4 +1,3 @@
-
 # CLI To-Do
 
 ## A simple CLI To-Do program in C 
@@ -28,10 +27,8 @@ git clone https://codeberg.org/xenxaarn/cli-to-do.git
 cd cli-to-do
 ```
 ```bash
-gcc -o main main.c
+make
 ```
 ```bash
 ./main
 ```
-
-
